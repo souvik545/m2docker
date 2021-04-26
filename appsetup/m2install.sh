@@ -1,0 +1,22 @@
+php bin/magento setup:install \
+--admin-firstname=test \
+--admin-lastname=user \
+--admin-email=adminemail@email.com \
+--admin-user=admin \
+--admin-password='SomePassword123' \
+--base-url=https://m2dev-docker.com \
+--base-url-secure=https://m2dev-docker.com \
+--backend-frontname=admin \
+--db-host=m2db \
+--db-name=m2dev \
+--db-user=m2user \
+--db-password=m2password \
+--use-rewrites=1 \
+--language=en_US \
+--currency=USD \
+--timezone=America/Chicago \
+--use-secure-admin=1 \
+--admin-use-security-key=1 \
+--session-save=files \
+--elasticsearch-host=m2elastic \
+--elasticsearch-port=9200

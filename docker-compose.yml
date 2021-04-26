@@ -1,0 +1,42 @@
+version: "2.3"
+services:
+  app:
+    container_name: m2_webapp
+    build:
+      context: ./
+      dockerfile: docker/app/Dockerfile
+    working_dir: /var/www/html
+    depends_on:
+      - m2db
+    volumes:
+      - ./m2app/:/var/www/html
+      - ./webserver/logs:/etc/httpd/logs
+    ports:
+      - "80:80"
+    tty: true
+    links:
+      - m2db
+  m2db:
+    image: mysql:latest
+    container_name: m2_db
+    ports:
+      - "6033:3306"
+    environment:
+      - MYSQL_HOST=m2devdb
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=m2dev
+      - MYSQL_USER=m2user
+      - MYSQL_PASSWORD=m2password
+    volumes:
+      - db-data:/var/lib/mysql
+  m2elastic:
+    image: elasticsearch:7.8.1
+    container_name: m2_elastic
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - discovery.type=single-node
+volumes:
+  db-data:
+    external: false
